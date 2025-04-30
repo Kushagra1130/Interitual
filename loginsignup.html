@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interitual | Login/Signup</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+         :root {
+            --primary: #6C5CE7;
+            --primary-light: #8577ef;
+            --secondary: #A29BFE;
+            --accent: #FD79A8;
+            --light: #F8F9FA;
+            --dark: #2D3436;
+            --text: #636E72;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            --google-red: #DB4437;
+            --facebook-blue: #4267B2;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text);
+            background-color: var(--light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;
+        }
+        
+        .auth-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            min-height: 700px;
+            position: relative;
+        }
+        
+        .auth-illustration {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .auth-illustration::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+            opacity: 0.1;
+        }
+        
+        .auth-illustration img {
+            width: 80%;
+            max-width: 400px;
+            margin-bottom: 2rem;
+            z-index: 1;
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        .auth-illustration h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            z-index: 1;
+            text-align: center;
+        }
+        
+        .auth-illustration p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 400px;
+            text-align: center;
+            z-index: 1;
+        }
+        
+        .auth-form-container {
+            flex: 1;
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .auth-form-container h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .auth-form-container p.subtitle {
+            color: var(--text);
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .auth-tab {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text);
+            opacity: 0.7;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .auth-tab.active {
+            color: var(--primary);
+            opacity: 1;
+        }
+        
+        .auth-tab.active:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .auth-form {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .auth-form.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes floating {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(108, 92, 231, 0.4);
+        }
+        
+        .btn i {
+            transition: var(--transition);
+        }
+        
+        .btn:hover i {
+            transform: translateX(3px);
+        }
+        
+        .btn-google {
+            background: white;
+            color: var(--google-red);
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .btn-google:hover {
+            border-color: var(--google-red);
+            box-shadow: 0 7px 20px rgba(219, 68, 55, 0.15);
+        }
+        
+        .btn-facebook {
+            background: var(--facebook-blue);
+            box-shadow: 0 4px 15px rgba(66, 103, 178, 0.3);
+        }
+        
+        .btn-facebook:hover {
+            box-shadow: 0 7px 20px rgba(66, 103, 178, 0.4);
+        }
+        
+        .social-auth {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-auth .btn {
+            width: 50%;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: rgba(0, 0, 0, 0.3);
+            font-weight: 600;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .divider::before {
+            margin-right: 1rem;
+        }
+        
+        .divider::after {
+            margin-left: 1rem;
+        }
+        
+        .auth-footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .auth-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .forgot-password {
+            display: block;
+            text-align: right;
+            margin-top: 0.5rem;
+        }
+        
+        .forgot-password a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        
+        .otp-container {
+            display: none;
+            margin-top: 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .otp-inputs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            gap: 0.5rem;
+        }
+        
+        .otp-input {
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            font-size: 1.5rem;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+        
+        .otp-input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+        }
+        
+        .resend-otp {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .resend-otp a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .resend-otp a:hover {
+            text-decoration: underline;
+        }
+        
+        .password-strength {
+            height: 4px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 2px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .strength-meter {
+            height: 100%;
+            width: 0%;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+        /* Reset Password Modal */
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+        
+        .close-modal:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+        /* Loading Spinner */
+        
+        .spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        /* Responsive adjustments */
+        
+        @media (max-width: 992px) {
+            .auth-illustration {
+                display: none;
+            }
+            .auth-container {
+                max-width: 500px;
+                margin: 1rem;
+            }
+            .social-auth {
+                flex-direction: column;
+            }
+            .social-auth .btn {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .auth-form-container {
+                padding: 2rem;
+            }
+            .auth-tabs {
+                justify-content: center;
+            }
+            .otp-input {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-illustration">
+            <img src="https://cdn-icons-png.flaticon.com/512/4775/4775990.png" alt="Interior Design Illustration">
+            <h2>Design Your Dream Space</h2>
+            <p>Join our community of interior design enthusiasts and transform your spaces with AI-powered tools.</p>
+        </div>
+
+        <div class="auth-form-container">
+            <h1 class="animate__animated animate__fadeIn">Welcome!</h1>
+            <p class="subtitle animate__animated animate__fadeIn animate__delay-1s">Please enter your details</p>
+
+            <div class="auth-tabs">
+                <div class="auth-tab active" onclick="showForm('login')">Login</div>
+                <div class="auth-tab" onclick="showForm('signup')">Sign Up</div>
+            </div>
+
+            <!-- Social Auth -->
+            <div class="social-auth animate__animated animate__fadeIn animate__delay-2s">
+                <button class="btn btn-google" onclick="socialLogin('google')">
+                    <i class="fab fa-google"></i> Google
+                </button>
+                <button class="btn btn-facebook" onclick="socialLogin('facebook')">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </button>
+            </div>
+
+            <div class="divider animate__animated animate__fadeIn animate__delay-2s">or</div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form active animate__animated animate__fadeIn animate__delay-3s">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" class="form-control" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required>
+                    <div class="forgot-password">
+                        <a href="#" onclick="showResetModal()">Forgot password?</a>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="button" class="btn" onclick="loginUser()">
+                        Login <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="auth-footer">
+                    Don't have an account? <a href="#" onclick="showForm('signup')">Sign up</a>
+                </div>
+            </form>
+
+            <!-- Signup Form -->
+            <form id="signup-form" class="auth-form animate__animated animate__fadeIn animate__delay-3s">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" class="form-control" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" class="form-control" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-phone">Phone Number</label>
+                    <input type="tel" id="signup-phone" class="form-control" placeholder="Enter your phone number" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" class="form-control" placeholder="Create a password" required oninput="checkPasswordStrength()">
+                    <div class="password-strength">
+                        <div class="strength-meter" id="password-strength-meter"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirm Password</label>
+                    <input type="password" id="signup-confirm-password" class="form-control" placeholder="Confirm your password" required>
+                </div>
+
+                <div class="form-group">
+                    <button type="button" class="btn" onclick="signupUser()">
+                        Create Account <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="auth-footer">
+                    Already have an account? <a href="#" onclick="showForm('login')">Login</a>
+                </div>
+            </form>
+
+            <!-- OTP Verification -->
+            <div id="otp-verification" class="otp-container">
+                <h2>Verify Your Account</h2>
+                <p>We've sent a 4-digit verification code to your email. Please enter it below.</p>
+
+                <div class="otp-inputs">
+                    <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 1)" autofocus>
+                    <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 2)">
+                    <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 3)">
+                    <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 4)">
+                </div>
+
+                <div class="form-group">
+                    <div class="spinner" id="otp-spinner"></div>
+                    <button type="button" class="btn" id="verify-otp-btn" onclick="verifyOTP()">
+                        Verify & Continue <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="resend-otp">
+                    Didn't receive code? <a href="#" onclick="resendOTP()">Resend OTP</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset Password Modal -->
+    <div id="reset-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2>Reset Your Password</h2>
+            <p>Enter your email address and we'll send you a link to reset your password.</p>
+
+            <div class="form-group">
+                <label for="reset-email">Email Address</label>
+                <input type="email" id="reset-email" class="form-control" placeholder="Your registered email">
+            </div>
+
+            <div class="form-group">
+                <button type="button" class="btn" onclick="sendResetLink()">
+                    Send Reset Link <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+
+            <div class="auth-footer">
+                Remember your password? <a href="#" onclick="closeModal();showForm('login')">Login here</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show login or signup form
+        function showForm(formType) {
+            document.querySelectorAll('.auth-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.querySelectorAll('.auth-form').forEach(form => {
+                form.classList.remove('active');
+            });
+
+            if (formType === 'login') {
+                document.querySelector('.auth-tabs div:nth-child(1)').classList.add('active');
+                document.getElementById('login-form').classList.add('active');
+            } else {
+                document.querySelector('.auth-tabs div:nth-child(2)').classList.add('active');
+                document.getElementById('signup-form').classList.add('active');
+            }
+        }
+
+        // Move to next OTP input
+        function moveToNext(current, next) {
+            if (current.value.length === 1) {
+                if (next <= 4) {
+                    document.querySelector(`.otp-inputs input:nth-child(${next})`).focus();
+                }
+            } else if (current.value.length === 0 && next > 1) {
+                document.querySelector(`.otp-inputs input:nth-child(${next-2})`).focus();
+            }
+        }
+
+        // Simulate social login
+        function socialLogin(provider) {
+            showLoader('social');
+            setTimeout(() => {
+                hideLoader('social');
+                // Redirect to dashboard after social login
+                window.location.href = "user-dashboard.html";
+            }, 1500);
+        }
+
+        // Simulate login process
+        function loginUser() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            if (!email || !password) {
+                showAlert("Please fill in all fields", "error");
+                return;
+            }
+
+            showLoader('login');
+
+            // Simulate API call
+            setTimeout(() => {
+                hideLoader('login');
+
+                // In a real app, you would check if user has 2FA enabled
+                // For demo, we'll always show OTP verification after login
+                document.getElementById('login-form').classList.remove('active');
+                document.getElementById('otp-verification').style.display = 'block';
+                showAlert(`OTP has been sent to ${email}`, 'success');
+            }, 1500);
+        }
+
+        // Simulate signup process
+        function signupUser() {
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const phone = document.getElementById('signup-phone').value;
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm-password').value;
+
+            if (!name || !email || !phone || !password || !confirmPassword) {
+                showAlert("Please fill in all fields", "error");
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showAlert("Passwords don't match", "error");
+                return;
+            }
+
+            showLoader('signup');
+
+            // Simulate API call
+            setTimeout(() => {
+                hideLoader('signup');
+                document.getElementById('signup-form').classList.remove('active');
+                document.getElementById('otp-verification').style.display = 'block';
+                showAlert(`OTP has been sent to ${email}`, 'success');
+            }, 1500);
+        }
+
+        // Simulate OTP verification
+        function verifyOTP() {
+            const otpInputs = document.querySelectorAll('.otp-input');
+            let otpCode = '';
+
+            otpInputs.forEach(input => {
+                otpCode += input.value;
+            });
+
+            if (otpCode.length !== 4) {
+                showAlert("Please enter the complete 4-digit code", "error");
+                return;
+            }
+
+            document.getElementById('verify-otp-btn').style.display = 'none';
+            document.getElementById('otp-spinner').style.display = 'block';
+
+            // Simulate OTP verification
+            setTimeout(() => {
+                document.getElementById('otp-spinner').style.display = 'none';
+                document.getElementById('verify-otp-btn').style.display = 'block';
+
+                // Redirect to dashboard after successful verification
+                window.location.href = "user-dashboard.html";
+            }, 2000);
+        }
+
+        // Simulate resending OTP
+        function resendOTP() {
+            showLoader('otp-resend');
+
+            setTimeout(() => {
+                hideLoader('otp-resend');
+                showAlert("New OTP has been sent to your registered email", 'success');
+            }, 1000);
+        }
+
+        // Password strength checker
+        function checkPasswordStrength() {
+            const password = document.getElementById('signup-password').value;
+            const meter = document.getElementById('password-strength-meter');
+
+            // Simple strength calculation
+            let strength = 0;
+            if (password.length > 0) strength += 20;
+            if (password.length >= 8) strength += 20;
+            if (/[A-Z]/.test(password)) strength += 20;
+            if (/[0-9]/.test(password)) strength += 20;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 20;
+
+            meter.style.width = strength + '%';
+            meter.style.background = strength < 40 ? 'var(--accent)' :
+                strength < 80 ? '#ffb74d' : '#4CAF50';
+        }
+
+        // Reset password modal functions
+        function showResetModal() {
+            document.getElementById('reset-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('reset-modal').style.display = 'none';
+        }
+
+        function sendResetLink() {
+            const email = document.getElementById('reset-email').value;
+
+            if (!email) {
+                showAlert("Please enter your email address", "error");
+                return;
+            }
+
+            showLoader('reset');
+
+            setTimeout(() => {
+                hideLoader('reset');
+                closeModal();
+                showAlert(`Password reset link has been sent to ${email}`, 'success');
+            }, 1500);
+        }
+
+        // Loader functions
+        function showLoader(context) {
+            // In a real app, you would show specific loaders for each context
+            console.log(`Showing loader for ${context}`);
+        }
+
+        function hideLoader(context) {
+            // In a real app, you would hide specific loaders for each context
+            console.log(`Hiding loader for ${context}`);
+        }
+
+        // Alert/notification function
+        function showAlert(message, type = 'error') {
+            // In a real app, you would show a beautiful toast notification
+            const colors = {
+                error: '#f44336',
+                success: '#4CAF50',
+                info: '#2196F3'
+            };
+
+            const alertBox = document.createElement('div');
+            alertBox.style.position = 'fixed';
+            alertBox.style.bottom = '20px';
+            alertBox.style.right = '20px';
+            alertBox.style.backgroundColor = colors[type] || colors.error;
+            alertBox.style.color = 'white';
+            alertBox.style.padding = '16px';
+            alertBox.style.borderRadius = '4px';
+            alertBox.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+            alertBox.style.zIndex = '1000';
+            alertBox.style.maxWidth = '300px';
+            alertBox.style.animation = 'fadeIn 0.3s ease';
+            alertBox.textContent = message;
+
+            document.body.appendChild(alertBox);
+
+            setTimeout(() => {
+                alertBox.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(alertBox);
+                }, 300);
+            }, 3000);
+        }
+
+        // Initialize animations on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate__animated');
+
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+
+                if (elementPosition < screenPosition) {
+                    const animationClass = element.classList[1];
+                    if (!element.classList.contains(animationClass)) {
+                        element.classList.add(animationClass);
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+
+</html>

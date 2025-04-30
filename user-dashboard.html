@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interitual | User Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+         :root {
+            --primary: #6C5CE7;
+            --primary-light: #8577ef;
+            --secondary: #A29BFE;
+            --accent: #FD79A8;
+            --light: #F8F9FA;
+            --dark: #2D3436;
+            --text: #636E72;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text);
+            background-color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        /* Dashboard Layout */
+        
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+        /* Sidebar Styles */
+        
+        .sidebar {
+            background: linear-gradient(135deg, var(--dark), #1a1a1a);
+            color: white;
+            padding: 2rem 1rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .user-profile {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+            margin: 0 auto 1rem;
+            transition: var(--transition);
+        }
+        
+        .user-avatar:hover {
+            transform: scale(1.05);
+        }
+        
+        .user-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .user-email {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--secondary);
+        }
+        
+        .nav-link i {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+        /* Main Content Styles */
+        
+        .main-content {
+            padding: 2rem;
+            background-color: #f5f7fa;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-title {
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin: 0;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            width: 300px;
+        }
+        
+        .search-bar input {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .search-bar i {
+            color: var(--primary);
+        }
+        /* Design History Grid */
+        
+        .designs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .design-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .design-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .design-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .design-details {
+            padding: 1.2rem;
+        }
+        
+        .design-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 0 0.5rem;
+            color: var(--dark);
+        }
+        
+        .design-date {
+            font-size: 0.8rem;
+            color: var(--text);
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+        
+        .design-emotions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .emotion-tag {
+            background: var(--primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        
+        .emotion-tag.happy {
+            background: var(--success);
+        }
+        
+        .emotion-tag.sad {
+            background: var(--danger);
+        }
+        
+        .emotion-tag.calm {
+            background: #0984e3;
+        }
+        
+        .emotion-tag.stressed {
+            background: var(--warning);
+            color: var(--dark);
+        }
+        
+        .design-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .edit-btn {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .edit-btn:hover {
+            background: var(--primary-light);
+        }
+        
+        .delete-btn {
+            background: rgba(0, 0, 0, 0.05);
+            color: var(--text);
+        }
+        
+        .delete-btn:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        /* Empty State */
+        
+        .empty-state {
+            text-align: center;
+            padding: 4rem 0;
+            grid-column: 1 / -1;
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .empty-state h3 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .empty-state p {
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .create-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .create-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(108, 92, 231, 0.4);
+        }
+        /* Modal Styles */
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+        }
+        
+        .edit-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-light);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(108, 92, 231, 0.05);
+        }
+        /* Animations */
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        /* Responsive Adjustments */
+        
+        @media (max-width: 992px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                height: auto;
+                position: relative;
+                padding: 1rem;
+            }
+            .user-profile {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                text-align: left;
+                padding-bottom: 1rem;
+            }
+            .user-avatar {
+                width: 50px;
+                height: 50px;
+                margin: 0;
+            }
+            .nav-menu {
+                display: flex;
+                gap: 0.5rem;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+            }
+            .nav-item {
+                margin-bottom: 0;
+            }
+            .nav-link {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+            .nav-link span {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .search-bar {
+                width: 100%;
+            }
+            .designs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="user-profile">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User Avatar" class="user-avatar">
+                <div class="user-name">Sarah Johnson</div>
+                <div class="user-email">sarah@example.com</div>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-th-large"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="loginsignup.html" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Log Out</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <h1 class="page-title">My Design History</h1>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search designs...">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+
+            <div class="designs-grid">
+                <!-- Design Card 1 -->
+                <div class="design-card animate__animated animate__fadeIn">
+                    <img src="https://images.unsplash.com/photo-1583845112203-29329902330b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Design" class="design-image">
+                    <div class="design-details">
+                        <h3 class="design-title">Calming Bedroom</h3>
+                        <div class="design-date">Created on May 15, 2023</div>
+                        <div class="design-emotions">
+                            <span class="emotion-tag calm">Calm</span>
+                            <span class="emotion-tag">Relaxed</span>
+                        </div>
+                        <div class="design-actions">
+                            <button class="action-btn edit-btn edit-design-btn">
+                                <i class="fas fa-pencil-alt"></i> Edit
+                            </button>
+                            <button class="action-btn delete-btn">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design Card 2 -->
+                <div class="design-card animate__animated animate__fadeIn">
+                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Design" class="design-image">
+                    <div class="design-details">
+                        <h3 class="design-title">Productive Home Office</h3>
+                        <div class="design-date">Created on April 28, 2023</div>
+                        <div class="design-emotions">
+                            <span class="emotion-tag">Focused</span>
+                            <span class="emotion-tag happy">Energetic</span>
+                        </div>
+                        <div class="design-actions">
+                            <button class="action-btn edit-btn edit-design-btn">
+                                <i class="fas fa-pencil-alt"></i> Edit
+                            </button>
+                            <button class="action-btn delete-btn">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design Card 3 -->
+                <div class="design-card animate__animated animate__fadeIn">
+                    <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Design" class="design-image">
+                    <div class="design-details">
+                        <h3 class="design-title">Stress-Free Living Room</h3>
+                        <div class="design-date">Created on March 10, 2023</div>
+                        <div class="design-emotions">
+                            <span class="emotion-tag stressed">Stressed</span>
+                            <span class="emotion-tag calm">Peaceful</span>
+                        </div>
+                        <div class="design-actions">
+                            <button class="action-btn edit-btn edit-design-btn">
+                                <i class="fas fa-pencil-alt"></i> Edit
+                            </button>
+                            <button class="action-btn delete-btn">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design Card 4 -->
+                <div class="design-card animate__animated animate__fadeIn">
+                    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Design" class="design-image">
+                    <div class="design-details">
+                        <h3 class="design-title">Creative Workspace</h3>
+                        <div class="design-date">Created on February 22, 2023</div>
+                        <div class="design-emotions">
+                            <span class="emotion-tag happy">Happy</span>
+                            <span class="emotion-tag">Inspired</span>
+                        </div>
+                        <div class="design-actions">
+                            <button class="action-btn edit-btn edit-design-btn">
+                                <i class="fas fa-pencil-alt"></i> Edit
+                            </button>
+                            <button class="action-btn delete-btn">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State (hidden by default) -->
+                <div class="empty-state" style="display: none;">
+                    <i class="fas fa-box-open"></i>
+                    <h3>No Designs Yet</h3>
+                    <p>You haven't created any designs yet. Start by creating your first emotion-based design!</p>
+                    <a href="emotion-decor.html" class="create-btn">
+                        <i class="fas fa-plus"></i> Create Design
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Edit Design Modal -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <h2 class="modal-title">Edit Design</h2>
+
+            <form class="edit-form">
+                <div class="form-group">
+                    <label for="designName">Design Name</label>
+                    <input type="text" id="designName" class="form-control" value="Calming Bedroom">
+                </div>
+
+                <div class="form-group">
+                    <label for="designDescription">Description</label>
+                    <textarea id="designDescription" class="form-control" rows="3">A calming bedroom space designed to promote relaxation and better sleep.</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Emotions</label>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        <span class="emotion-tag calm">Calm</span>
+                        <span class="emotion-tag">Relaxed</span>
+                        <button type="button" style="background: none; border: none; color: var(--primary); cursor: pointer;">
+                            <i class="fas fa-plus"></i> Add Emotion
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Design Preview</label>
+                    <img src="https://images.unsplash.com/photo-1583845112203-29329902330b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Design Preview" style="width: 100%; border-radius: 8px; margin-top: 0.5rem;">
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelEdit">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const editButtons = document.querySelectorAll('.edit-design-btn');
+        const editModal = document.getElementById('editModal');
+        const closeModal = document.getElementById('closeModal');
+        const cancelEdit = document.getElementById('cancelEdit');
+
+        // Open modal when edit button is clicked
+        editButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                editModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Close modal
+        function closeEditModal() {
+            editModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        closeModal.addEventListener('click', closeEditModal);
+        cancelEdit.addEventListener('click', closeEditModal);
+
+        // Close modal when clicking outside
+        editModal.addEventListener('click', (e) => {
+            if (e.target === editModal) {
+                closeEditModal();
+            }
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const designCards = document.querySelectorAll('.design-card');
+
+            designCards.forEach(card => {
+                const title = card.querySelector('.design-title').textContent.toLowerCase();
+                const emotions = card.querySelector('.design-emotions').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || emotions.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Delete design functionality
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const card = button.closest('.design-card');
+                if (confirm('Are you sure you want to delete this design?')) {
+                    card.classList.add('animate__animated', 'animate__fadeOut');
+                    setTimeout(() => {
+                        card.remove();
+                        checkEmptyState();
+                    }, 300);
+                }
+            });
+        });
+
+        // Check if there are no designs left
+        function checkEmptyState() {
+            const designCards = document.querySelectorAll('.design-card');
+            const emptyState = document.querySelector('.empty-state');
+
+            if (designCards.length === 0) {
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+            }
+        }
+
+        // Initialize animations on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate__animated');
+
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Form submission
+        const editForm = document.querySelector('.edit-form');
+        editForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Simulate saving changes
+            const saveBtn = editForm.querySelector('.btn-primary');
+            const originalText = saveBtn.innerHTML;
+            saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            saveBtn.disabled = true;
+
+            setTimeout(() => {
+                saveBtn.innerHTML = originalText;
+                saveBtn.disabled = false;
+                closeEditModal();
+
+                // Show success message
+                alert('Design updated successfully!');
+            }, 1500);
+        });
+    </script>
+</body>
+
+</html>

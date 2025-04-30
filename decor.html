@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DesignGenius AI | Decor Options</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+         :root {
+            --primary: #6C5CE7;
+            --primary-light: #8577ef;
+            --secondary: #A29BFE;
+            --accent: #FD79A8;
+            --light: #F8F9FA;
+            --dark: #2D3436;
+            --text: #636E72;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        header.scrolled {
+            padding: 0.5rem 5%;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.98);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+        
+        .logo img {
+            height: 40px;
+            transition: var(--transition);
+        }
+        
+        header.scrolled .logo img {
+            height: 35px;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: var(--transition);
+        }
+        
+        header.scrolled .logo-text {
+            font-size: 1.3rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        nav a:hover:after {
+            width: 100%;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .active:after {
+            width: 100% !important;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(108, 92, 231, 0.4);
+        }
+        /* Updated page-title with Vanta.js background */
+        
+        .page-title {
+            text-align: center;
+            padding: 6rem 10% 4rem;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        
+        .page-title-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-title h1 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .page-title p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .decor-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .decor-card {
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .decor-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .decor-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            transition: var(--transition);
+        }
+        
+        .decor-card:hover .decor-image {
+            transform: scale(1.05);
+        }
+        
+        .decor-content {
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .decor-content h2 {
+            color: var(--primary);
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+        }
+        
+        .decor-content p {
+            margin-bottom: 1.8rem;
+            line-height: 1.7;
+        }
+        
+        .decor-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        }
+        
+        .decor-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(108, 92, 231, 0.4);
+            gap: 12px;
+        }
+        
+        .decor-button i {
+            transition: var(--transition);
+        }
+        
+        .decor-button:hover i {
+            transform: translateX(5px);
+        }
+        
+        .category-tag {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(253, 121, 168, 0.3);
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--dark), #1a1a1a);
+            color: white;
+            padding: 5rem 5% 3rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        /* Animation classes */
+        
+        .animate-delay-1 {
+            animation-delay: 0.2s;
+        }
+        
+        .animate-delay-2 {
+            animation-delay: 0.4s;
+        }
+        /* Floating elements */
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        /* Responsive adjustments */
+        
+        @media (max-width: 768px) {
+            .page-title h1 {
+                font-size: 2.2rem;
+            }
+            .page-title p {
+                font-size: 1rem;
+            }
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .decor-options {
+                grid-template-columns: 1fr;
+                padding: 2rem 5%;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header id="main-header">
+        <div class="logo">
+            <img src="logo.svg" alt="DesignGenius AI Logo">
+            <span class="logo-text">Interitual</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="decor.html" class="active">Decor</a></li>
+                <li><a href="emotion-decor.html">Emotion Decor</a></li>
+                <li><a href="loginsignup.html" class="cta-button">Login/Signup</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="page-title" id="vanta-background">
+        <div class="page-title-content">
+            <h1 class="animate__animated animate__fadeInDown">Choose Your Decor Style</h1>
+            <p class="animate__animated animate__fadeIn animate__delay-1s">Select the type of space you want to design and let our AI create beautiful interiors tailored to your needs</p>
+        </div>
+    </section>
+
+    <div class="decor-options">
+        <div class="decor-card animate__animated animate__fadeInUp floating">
+            <div class="category-tag">Residential</div>
+            <div class="decor-image" style="background-image: url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');"></div>
+            <div class="decor-content">
+                <h2>Home Decor</h2>
+                <p>Transform your living space with our AI-powered home decor solutions. Design your bedroom, living room, kitchen, or entire house with personalized styles that match your taste.</p>
+                <a href="home-decor.html" class="decor-button">Design Your Home <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="decor-card animate__animated animate__fadeInUp animate-delay-1 floating">
+            <div class="category-tag">Professional</div>
+            <div class="decor-image" style="background-image: url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');"></div>
+            <div class="decor-content">
+                <h2>Office Decor</h2>
+                <p>Create productive and inspiring workspaces with our office decor AI. Whether it's a corporate office, coworking space, or home office, we'll help you design the perfect environment.</p>
+                <a href="office-decor.html" class="decor-button">Design Your Office <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="decor-card animate__animated animate__fadeInUp animate-delay-1 floating" style="animation-delay: 0.3s;">
+            <div class="category-tag">Custom Build</div>
+            <div class="decor-image" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');"></div>
+            <div class="decor-content">
+                <h2>Land to Home</h2>
+                <p>Upload a photo of your land and see your dream home come to life. Enter your measurements and preferences, and our AI will generate a complete 3D model of your future property.</p>
+                <a href="land-decor.html" class="decor-button">Design From Land <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="decor-card animate__animated animate__fadeInUp animate-delay-1 floating" style="animation-delay: 0.6s;">
+            <div class="category-tag">Student Living</div>
+            <div class="decor-image" style="background-image: url('https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');"></div>
+            <div class="decor-content">
+                <h2>Hostel/PG Room</h2>
+                <p>Make your temporary space feel like home. Our AI helps students and professionals design cozy, functional rooms in hostels, PGs, or rented apartments.</p>
+                <a href="pg,hostel-decor.html" class="decor-button">Design Your Room <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Us</a>
+            <a href="#">FAQ</a>
+        </div>
+
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-pinterest-p"></i></a>
+        </div>
+
+        <p class="copyright">&copy; 2023 DesignGenius AI. All rights reserved.</p>
+    </footer>
+
+    <!-- Add Three.js and Vanta.js scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.halo.min.js"></script>
+
+    <script>
+        // Initialize Vanta.js halo effect
+        VANTA.HALO({
+            el: "#vanta-background",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            backgroundColor: 0x6c5ce7,
+            size: 1.5
+        });
+
+        // Header scroll effect with improved performance
+        let lastScrollY = 0;
+        let ticking = false;
+
+        function updateHeader() {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', function() {
+            lastScrollY = window.scrollY;
+            if (!ticking) {
+                window.requestAnimationFrame(updateHeader);
+                ticking = true;
+            }
+        });
+
+        // Improved animation on scroll with IntersectionObserver
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.animate__animated');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const animationClass = entry.target.getAttribute('class').split('animate__animated ')[1];
+                        entry.target.classList.add(animationClass);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DesignGenius AI | Home Decor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+         :root {
+            --primary: #6C5CE7;
+            --primary-light: #8577ef;
+            --secondary: #A29BFE;
+            --accent: #FD79A8;
+            --light: #F8F9FA;
+            --dark: #2D3436;
+            --text: #636E72;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+        
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text);
+            background-color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        /* Enhanced Header with subtle animation */
+        
+        header {
+            background-color: white;
+            box-shadow: var(--shadow-sm);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        header.scrolled {
+            padding: 0.8rem 5%;
+            box-shadow: var(--shadow-md);
+            background-color: rgba(255, 255, 255, 0.98);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+        
+        .logo img {
+            height: 40px;
+            transition: var(--transition);
+            filter: drop-shadow(0 2px 4px rgba(108, 92, 231, 0.2));
+        }
+        
+        header.scrolled .logo img {
+            height: 36px;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: var(--transition);
+            text-shadow: 0 2px 4px rgba(108, 92, 231, 0.1);
+        }
+        
+        header.scrolled .logo-text {
+            font-size: 1.3rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            font-size: 0.95rem;
+        }
+        
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+            transform-origin: left;
+        }
+        
+        nav a:hover:after {
+            width: 100%;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .active:after {
+            width: 100% !important;
+        }
+        /* Enhanced CTA Button */
+        
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(108, 92, 231, 0.4);
+        }
+        
+        .cta-button:active {
+            transform: translateY(1px);
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        /* Enhanced Page Title Section with Vanta.js background */
+        
+        .page-title {
+            text-align: center;
+            padding: 8rem 10% 6rem;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        
+        .page-title-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-title h1 {
+            font-size: 3.2rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .page-title p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        /* Enhanced Room Options Grid */
+        
+        .room-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            padding: 4rem 5%;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        /* Enhanced Room Cards with 3D tilt effect */
+        
+        .room-card {
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+        
+        .room-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .room-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.8rem;
+            color: white;
+            font-size: 2.2rem;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(162, 155, 254, 0.4);
+        }
+        
+        .room-card:hover .room-icon {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.5);
+        }
+        
+        .room-card h3 {
+            color: var(--dark);
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .room-card p {
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            font-size: 1rem;
+            color: var(--text);
+            padding: 0 1rem;
+        }
+        /* Enhanced Room Button with pulse animation */
+        
+        .room-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .room-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+            gap: 15px;
+        }
+        
+        .room-button:active {
+            transform: translateY(1px);
+        }
+        
+        .room-button i {
+            transition: var(--transition);
+        }
+        
+        .room-button:hover i {
+            transform: translateX(5px);
+        }
+        
+        .room-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: 0.4s;
+        }
+        
+        .room-button:hover::after {
+            transform: translateX(100%);
+        }
+        /* Pulse animation for attention */
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        /* Enhanced Camera Modal */
+        
+        .camera-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .camera-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .camera-content {
+            background-color: white;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 650px;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: var(--shadow-xl);
+            transform: translateY(20px);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+        
+        .camera-modal.active .camera-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text);
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+            background-color: rgba(253, 121, 168, 0.1);
+        }
+        
+        .camera-container {
+            width: 100%;
+            height: 450px;
+            background-color: #f5f5f5;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        #camera-view {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .camera-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .camera-btn {
+            padding: 0.9rem 2rem;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+        }
+        
+        .capture-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+        
+        .capture-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+        }
+        
+        .capture-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .upload-btn {
+            background-color: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .upload-btn:hover {
+            background-color: var(--primary-light);
+            color: white;
+            border-color: var(--primary-light);
+        }
+        
+        .preview-container {
+            display: none;
+            width: 100%;
+            height: 450px;
+            background-color: #f5f5f5;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        #photo-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: #f5f5f5;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .action-btn {
+            padding: 0.9rem 2rem;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .retake-btn {
+            background-color: white;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+        
+        .retake-btn:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, var(--accent), #ff8fab);
+            color: white;
+            box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(253, 121, 168, 0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(1px);
+        }
+        /* Loading spinner */
+        
+        .spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        /* Enhanced Footer */
+        
+        footer {
+            background: linear-gradient(135deg, var(--dark), #1a1a1a);
+            color: white;
+            padding: 6rem 5% 4rem;
+            margin-top: 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            position: relative;
+        }
+        
+        .footer-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -3px;
+            left: 0;
+            background-color: var(--secondary);
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .footer-links a:hover:after {
+            width: 100%;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.8rem;
+            margin-bottom: 3rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+        
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+        /* Floating animation with variation */
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        .floating-2 {
+            animation: floating 5s ease-in-out infinite 1s;
+        }
+        
+        .floating-3 {
+            animation: floating 7s ease-in-out infinite 0.5s;
+        }
+        
+        @keyframes floating {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        /* Responsive adjustments */
+        
+        @media (max-width: 992px) {
+            .page-title {
+                padding: 6rem 5% 4rem;
+            }
+            .page-title h1 {
+                font-size: 2.8rem;
+            }
+            .room-options {
+                gap: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 5%;
+            }
+            nav ul {
+                gap: 15px;
+            }
+            .page-title {
+                padding: 5rem 5% 3rem;
+            }
+            .page-title h1 {
+                font-size: 2.2rem;
+            }
+            .page-title p {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+            .room-options {
+                grid-template-columns: 1fr;
+                padding: 2rem 5%;
+                gap: 1.5rem;
+            }
+            .room-card {
+                padding: 2rem 1.5rem;
+            }
+            .camera-content {
+                width: 95%;
+                padding: 1.8rem;
+            }
+            .camera-container,
+            .preview-container {
+                height: 350px;
+            }
+            .footer-links {
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            .logo img {
+                height: 32px;
+            }
+            .cta-button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            .camera-container,
+            .preview-container {
+                height: 280px;
+            }
+            .camera-btn,
+            .action-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            .social-icons a {
+                width: 42px;
+                height: 42px;
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header id="main-header">
+        <div class="logo">
+            <img src="logo.svg" alt="DesignGenius AI Logo">
+            <span class="logo-text">Interitual</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="decor.html">Decor</a></li>
+                <li><a href="emotion-decor.html">Emotion Decor</a></li>
+                <li><a href="loginsignup.html" class="cta-button">Login/Signup</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="page-title" id="vanta-background">
+        <div class="page-title-content">
+            <h1 class="animate__animated animate__fadeInDown">Design Your Dream Home</h1>
+            <p class="animate__animated animate__fadeIn animate__delay-1s">Select a room type to get started with your AI-powered interior design</p>
+        </div>
+    </section>
+
+    <div class="room-options">
+        <div class="room-card animate__animated animate__fadeInUp floating">
+            <div class="room-icon">
+                <i class="fas fa-couch"></i>
+            </div>
+            <h3>Living Room</h3>
+            <p>Design a comfortable and stylish living space for relaxation and entertainment with our AI suggestions.</p>
+            <button class="room-button open-camera" data-room="living-room" aria-label="Design Living Room">
+                Design Now <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <div class="room-card animate__animated animate__fadeInUp animate-delay-1 floating-2">
+            <div class="room-icon">
+                <i class="fas fa-bed"></i>
+            </div>
+            <h3>Bedroom</h3>
+            <p>Create your perfect sanctuary with personalized bedroom designs that match your sleep and relaxation needs.</p>
+            <button class="room-button open-camera" data-room="bedroom" aria-label="Design Bedroom">
+                Design Now <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <div class="room-card animate__animated animate__fadeInUp animate-delay-1 floating-3" style="animation-delay: 0.2s;">
+            <div class="room-icon">
+                <i class="fas fa-bath"></i>
+            </div>
+            <h3>Bathroom</h3>
+            <p>Transform your bathroom into a spa-like retreat with smart layout and decor recommendations.</p>
+            <button class="room-button open-camera" data-room="bathroom" aria-label="Design Bathroom">
+                Design Now <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <div class="room-card animate__animated animate__fadeInUp animate-delay-1 floating" style="animation-delay: 0.4s;">
+            <div class="room-icon">
+                <i class="fas fa-utensils"></i>
+            </div>
+            <h3>Dining Room</h3>
+            <p>Design a welcoming dining area perfect for family meals and entertaining guests.</p>
+            <button class="room-button open-camera" data-room="dining-room" aria-label="Design Dining Room">
+                Design Now <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <div class="room-card animate__animated animate__fadeInUp animate-delay-1 floating-2" style="animation-delay: 0.6s;">
+            <div class="room-icon">
+                <i class="fas fa-umbrella-beach"></i>
+            </div>
+            <h3>Balcony</h3>
+            <p>Turn your balcony into a cozy outdoor retreat with space-saving and weather-appropriate designs.</p>
+            <button class="room-button open-camera" data-room="balcony" aria-label="Design Balcony">
+                Design Now <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <div class="room-card animate__animated animate__fadeInUp animate-delay-1 floating-3" style="animation-delay: 0.8s;">
+            <div class="room-icon">
+                <i class="fas fa-sun"></i>
+            </div>
+            <h3>Terrace</h3>
+            <p>Create an amazing outdoor living space on your terrace with our innovative design solutions.</p>
+            <button class="room-button open-camera pulse" data-room="terrace" aria-label="Design Terrace">
+                Design Now <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Camera Modal -->
+    <div class="camera-modal" id="cameraModal">
+        <div class="camera-content">
+            <span class="close-modal" tabindex="0" aria-label="Close camera modal">&times;</span>
+            <h2 id="modal-title">Capture Your Living Room</h2>
+            <p>Take a photo or upload an image of your space to get started with the AI design.</p>
+
+            <div class="camera-container">
+                <video id="camera-view" autoplay playsinline aria-label="Camera preview"></video>
+            </div>
+
+            <div class="preview-container">
+                <img id="photo-preview" src="" alt="Captured Photo">
+            </div>
+
+            <div class="camera-controls" id="capture-controls">
+                <button class="camera-btn capture-btn" id="capture-btn" aria-label="Take photo">
+                    <i class="fas fa-camera"></i> Capture
+                </button>
+                <button class="camera-btn upload-btn" id="upload-btn" aria-label="Upload photo">
+                    <i class="fas fa-upload"></i> Upload
+                </button>
+                <input type="file" id="file-input" accept="image/*" style="display: none;">
+            </div>
+
+            <div class="action-buttons" id="action-controls" style="display: none;">
+                <button class="action-btn retake-btn" id="retake-btn" aria-label="Retake photo">
+                    <i class="fas fa-redo"></i> Retake
+                </button>
+                <button class="action-btn submit-btn" id="submit-btn" aria-label="Generate design">
+                    <i class="fas fa-magic"></i> Generate Design
+                </button>
+            </div>
+
+            <div class="spinner" id="loading-spinner" style="display: none;"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Us</a>
+            <a href="#">FAQ</a>
+        </div>
+
+        <div class="social-icons">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+        </div>
+
+        <p class="copyright">&copy; 2023 DesignGenius AI. All rights reserved.</p>
+    </footer>
+
+    <!-- Add Three.js and Vanta.js scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.halo.min.js"></script>
+
+    <script>
+        // Initialize Vanta.js halo effect
+        VANTA.HALO({
+            el: "#vanta-background",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            backgroundColor: 0x6c5ce7,
+            size: 1.5
+        });
+
+        // Enhanced Header scroll effect with requestAnimationFrame
+        let lastScrollY = 0;
+        let ticking = false;
+
+        function updateHeader() {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', function() {
+            lastScrollY = window.scrollY;
+            if (!ticking) {
+                window.requestAnimationFrame(updateHeader);
+                ticking = true;
+            }
+        });
+
+        // Animation on scroll with IntersectionObserver for better performance
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.animate__animated');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const animationClass = entry.target.getAttribute('class').split('animate__animated ')[1];
+                        entry.target.classList.add(animationClass);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', animateOnScroll);
+
+        // Enhanced Camera functionality with better error handling
+        const cameraModal = document.getElementById('cameraModal');
+        const openCameraButtons = document.querySelectorAll('.open-camera');
+        const closeModal = document.querySelector('.close-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const cameraView = document.getElementById('camera-view');
+        const photoPreview = document.getElementById('photo-preview');
+        const captureBtn = document.getElementById('capture-btn');
+        const uploadBtn = document.getElementById('upload-btn');
+        const fileInput = document.getElementById('file-input');
+        const retakeBtn = document.getElementById('retake-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const cameraContainer = document.querySelector('.camera-container');
+        const previewContainer = document.querySelector('.preview-container');
+        const captureControls = document.getElementById('capture-controls');
+        const actionControls = document.getElementById('action-controls');
+        const loadingSpinner = document.getElementById('loading-spinner');
+
+        let stream = null;
+        let currentRoom = '';
+
+        // Open camera modal with smooth transition
+        openCameraButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                currentRoom = button.getAttribute('data-room');
+                const roomName = button.parentElement.querySelector('h3').textContent;
+                modalTitle.textContent = `Capture Your ${roomName}`;
+
+                // Show modal with transition
+                cameraModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                // Start camera with delay to allow modal to animate
+                setTimeout(() => {
+                    startCamera().catch(err => {
+                        console.error("Camera error:", err);
+                        // Fallback to upload only if camera fails
+                        captureBtn.style.display = 'none';
+                        alert("Couldn't access camera. Please upload a photo instead.");
+                    });
+                }, 300);
+            });
+        });
+
+        // Close modal with transition
+        function closeCameraModal() {
+            cameraModal.classList.remove('active');
+            setTimeout(() => {
+                document.body.style.overflow = 'auto';
+                stopCamera();
+                resetCameraUI();
+            }, 300);
+        }
+
+        closeModal.addEventListener('click', closeCameraModal);
+        closeModal.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                closeCameraModal();
+            }
+        });
+
+        // Start camera stream with better constraints
+        async function startCamera() {
+            try {
+                stopCamera(); // Stop any existing stream
+
+                const constraints = {
+                    video: {
+                        facingMode: 'environment',
+                        width: {
+                            ideal: 1280
+                        },
+                        height: {
+                            ideal: 720
+                        }
+                    },
+                    audio: false
+                };
+
+                stream = await navigator.mediaDevices.getUserMedia(constraints);
+                cameraView.srcObject = stream;
+
+                // Enable capture button only when camera is ready
+                captureBtn.disabled = false;
+                return Promise.resolve();
+            } catch (err) {
+                console.error("Error accessing camera: ", err);
+                return Promise.reject(err);
+            }
+        }
+
+        // Stop camera stream properly
+        function stopCamera() {
+            if (stream) {
+                stream.getTracks().forEach(track => {
+                    track.stop();
+                });
+                cameraView.srcObject = null;
+                stream = null;
+            }
+        }
+
+        // Capture photo with flash effect
+        captureBtn.addEventListener('click', () => {
+            // Add flash effect
+            cameraContainer.style.backgroundColor = 'white';
+            setTimeout(() => {
+                cameraContainer.style.backgroundColor = '#f5f5f5';
+            }, 200);
+
+            const canvas = document.createElement('canvas');
+            canvas.width = cameraView.videoWidth;
+            canvas.height = cameraView.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(cameraView, 0, 0, canvas.width, canvas.height);
+
+            // Display preview
+            photoPreview.src = canvas.toDataURL('image/png');
+            showPreview();
+
+            // Stop camera after capture    
+            stopCamera();
+        });
+
+        function showPreview() {
+            cameraContainer.style.display = 'none';
+            previewContainer.style.display = 'block';
+            captureControls.style.display = 'none';
+            actionControls.style.display = 'flex';
+        }
+
+        // Upload photo with validation
+        uploadBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            // Validate file type
+            if (!file.type.match('image.*')) {
+                alert('Please select an image file (JPEG, PNG, etc.)');
+                return;
+            }
+
+            // Validate file size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('Image size should be less than 5MB');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                photoPreview.src = event.target.result;
+                showPreview();
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Retake photo
+        retakeBtn.addEventListener('click', () => {
+            resetCameraUI();
+            startCamera().catch(err => {
+                console.error("Camera error on retake:", err);
+                // If camera fails on retake, show upload option
+                captureBtn.style.display = 'none';
+            });
+        });
+
+        // Submit photo with loading state
+        submitBtn.addEventListener('click', () => {
+            // Show loading spinner
+            actionControls.style.display = 'none';
+            loadingSpinner.style.display = 'block';
+
+            // Simulate processing delay (in a real app, this would be an API call)
+            setTimeout(() => {
+                loadingSpinner.style.display = 'none';
+
+                // Show success message
+                const roomName = currentRoom.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
+                alert(`Design generation started for your ${roomName}! Our AI is creating beautiful designs for you.`);
+
+                closeCameraModal();
+
+                // In a real app, you would redirect to the design results page
+                // window.location.href = `design-results.html?room=${currentRoom}`;
+            }, 2000);
+        });
+
+        // Reset camera UI to initial state
+        function resetCameraUI() {
+            cameraContainer.style.display = 'block';
+            previewContainer.style.display = 'none';
+            captureControls.style.display = 'flex';
+            actionControls.style.display = 'none';
+            photoPreview.src = '';
+            fileInput.value = '';
+            captureBtn.style.display = 'inline-flex'; // Reset if hidden due to errors
+        }
+
+        // Close modal when clicking outside or pressing Escape
+        window.addEventListener('click', (e) => {
+            if (e.target === cameraModal) {
+                closeCameraModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && cameraModal.classList.contains('active')) {
+                closeCameraModal();
+            }
+        });
+
+        // Add hover effects for all interactive elements
+        document.querySelectorAll('button, a, [role="button"]').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.style.transform = 'translateY(1px)';
+            });
+            el.addEventListener('mouseup', () => {
+                el.style.transform = '';
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = '';
+            });
+        });
+    </script>
+</body>
+
+</html>

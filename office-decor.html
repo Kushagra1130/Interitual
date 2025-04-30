@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OfficeGenius | Professional Workspace Design</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+         :root {
+            --primary: #6C5CE7;
+            --primary-light: #8577ef;
+            --secondary: #A29BFE;
+            --accent: #FD79A8;
+            --light: #F8F9FA;
+            --dark: #2D3436;
+            --text: #636E72;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+        
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text);
+            background-color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        header {
+            box-shadow: var(--shadow-sm);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        header.scrolled {
+            padding: 0.8rem 5%;
+            box-shadow: var(--shadow-md);
+            background-color: rgba(255, 255, 255, 0.98);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+        
+        .logo img {
+            height: 40px;
+            transition: var(--transition);
+            filter: drop-shadow(0 2px 4px rgba(108, 92, 231, 0.2));
+        }
+        
+        header.scrolled .logo img {
+            height: 36px;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: var(--transition);
+            text-shadow: 0 2px 4px rgba(108, 92, 231, 0.1);
+        }
+        
+        header.scrolled .logo-text {
+            font-size: 1.3rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            font-size: 0.95rem;
+        }
+        
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+            transform-origin: left;
+        }
+        
+        nav a:hover:after {
+            width: 100%;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .active:after {
+            width: 100% !important;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(108, 92, 231, 0.4);
+        }
+        
+        .cta-button:active {
+            transform: translateY(1px);
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .page-title {
+            text-align: center;
+            padding: 8rem 10% 6rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-title:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+            opacity: 0.08;
+            z-index: 0;
+            animation: panBackground 40s linear infinite;
+        }
+        
+        @keyframes panBackground {
+            0% {
+                background-position: 0% 0%;
+            }
+            50% {
+                background-position: 100% 100%;
+            }
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+        
+        .page-title-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .page-title h1 {
+            font-size: 3.2rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .page-title p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+        
+        .office-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            padding: 4rem 5%;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        
+        .office-card {
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+        
+        .office-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .office-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.8rem;
+            color: white;
+            font-size: 2.2rem;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(162, 155, 254, 0.4);
+        }
+        
+        .office-card:hover .office-icon {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.5);
+        }
+        
+        .office-card h3 {
+            color: var(--dark);
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .office-card p {
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            font-size: 1rem;
+            color: var(--text);
+            padding: 0 1rem;
+        }
+        
+        .design-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .design-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+            gap: 15px;
+        }
+        
+        .design-button:active {
+            transform: translateY(1px);
+        }
+        
+        .design-button i {
+            transition: var(--transition);
+        }
+        
+        .design-button:hover i {
+            transform: translateX(5px);
+        }
+        
+        .design-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: 0.4s;
+        }
+        
+        .design-button:hover::after {
+            transform: translateX(100%);
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        .camera-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .camera-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .camera-content {
+            background-color: white;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 650px;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: var(--shadow-xl);
+            transform: translateY(20px);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+        
+        .camera-modal.active .camera-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text);
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+            background-color: rgba(253, 121, 168, 0.1);
+        }
+        
+        .camera-container {
+            width: 100%;
+            height: 450px;
+            background-color: #f5f5f5;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        #camera-view {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .camera-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .camera-btn {
+            padding: 0.9rem 2rem;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+        }
+        
+        .capture-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+        
+        .capture-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+        }
+        
+        .capture-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .upload-btn {
+            background-color: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .upload-btn:hover {
+            background-color: var(--primary-light);
+            color: white;
+            border-color: var(--primary-light);
+        }
+        
+        .preview-container {
+            display: none;
+            width: 100%;
+            height: 450px;
+            background-color: #f5f5f5;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        #photo-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: #f5f5f5;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .action-btn {
+            padding: 0.9rem 2rem;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .retake-btn {
+            background-color: white;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+        
+        .retake-btn:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, var(--accent), #ff8fab);
+            color: white;
+            box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(253, 121, 168, 0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--dark), #1a1a1a);
+            color: white;
+            padding: 6rem 5% 4rem;
+            margin-top: 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            position: relative;
+        }
+        
+        .footer-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -3px;
+            left: 0;
+            background-color: var(--secondary);
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .footer-links a:hover:after {
+            width: 100%;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.8rem;
+            margin-bottom: 3rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+        
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        .floating-2 {
+            animation: floating 5s ease-in-out infinite 1s;
+        }
+        
+        .floating-3 {
+            animation: floating 7s ease-in-out infinite 0.5s;
+        }
+        
+        @keyframes floating {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .page-title {
+                padding: 6rem 5% 4rem;
+            }
+            .page-title h1 {
+                font-size: 2.8rem;
+            }
+            .office-types {
+                gap: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 5%;
+            }
+            nav ul {
+                gap: 15px;
+            }
+            .page-title {
+                padding: 5rem 5% 3rem;
+            }
+            .page-title h1 {
+                font-size: 2.2rem;
+            }
+            .page-title p {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+            .office-types {
+                grid-template-columns: 1fr;
+                padding: 2rem 5%;
+                gap: 1.5rem;
+            }
+            .office-card {
+                padding: 2rem 1.5rem;
+            }
+            .camera-content {
+                width: 95%;
+                padding: 1.8rem;
+            }
+            .camera-container,
+            .preview-container {
+                height: 350px;
+            }
+            .footer-links {
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            .logo img {
+                height: 32px;
+            }
+            .cta-button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            .camera-container,
+            .preview-container {
+                height: 280px;
+            }
+            .camera-btn,
+            .action-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            .social-icons a {
+                width: 42px;
+                height: 42px;
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header id="main-header">
+        <div class="logo">
+            <img src="https://via.placeholder.com/40x40/4A6FA5/FFFFFF?text=OG" alt="OfficeGenius Logo">
+            <span class="logo-text">Interitual</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="home-decor.html">Home Decor</a></li>
+                <li><a href="office-decor.html">Office Decor</a></li>
+                <li><a href="land-decor.html">Land To Home Decor</a></li>
+                <li><a href="pg,hostel-decor.html">Hostel/PG Decor</a></li>
+                <li><a href="loginsignup.html" class="cta-button">Login/Signup</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="page-title">
+        <div class="page-title-content">
+            <h1 class="animate__animated animate__fadeInDown">Transform Your Workspace</h1>
+            <p class="animate__animated animate__fadeIn animate__delay-1s">AI-powered office design solutions tailored to boost productivity and style</p>
+        </div>
+    </section>
+
+    <div class="office-types">
+        <div class="office-card animate__animated animate__fadeInUp floating">
+            <div class="office-icon">
+                <i class="fas fa-th-large"></i>
+            </div>
+            <h3>Cubicle Design</h3>
+            <p>Optimize your cubicle space with smart layouts and ergonomic solutions that maximize productivity in limited areas.</p>
+            <button class="design-button open-camera" data-room="cubicle" aria-label="Design Cubicle">
+                Design Now <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <div class="office-card animate__animated animate__fadeInUp animate-delay-1 floating-2">
+            <div class="office-icon">
+                <i class="fas fa-building"></i>
+            </div>
+            <h3>Standard Office</h3>
+            <p>Create a professional and functional workspace with our AI-powered standard office design solutions.</p>
+            <button class="design-button open-camera" data-room="standard-office" aria-label="Design Standard Office">
+                Design Now <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <div class="office-card animate__animated animate__fadeInUp animate-delay-1 floating" style="animation-delay: 0.4s;">
+            <div class="office-icon">
+                <i class="fas fa-user-tie"></i>
+            </div>
+            <h3>Individual Design</h3>
+            <p>Get a completely customized office design tailored to your unique needs, preferences, and work style.</p>
+            <button class="design-button open-camera pulse" data-room="individual-design" aria-label="Create Individual Design">
+                Design Now <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Camera Modal -->
+    <div class="camera-modal" id="cameraModal">
+        <div class="camera-content">
+            <span class="close-modal" tabindex="0" aria-label="Close camera modal">&times;</span>
+            <h2 id="modal-title">Capture Your Workspace</h2>
+            <p>Take a photo or upload an image of your current space to get personalized design recommendations.</p>
+
+            <div class="camera-container">
+                <video id="camera-view" autoplay playsinline aria-label="Camera preview"></video>
+            </div>
+
+            <div class="preview-container">
+                <img id="photo-preview" src="" alt="Captured Photo">
+            </div>
+
+            <div class="camera-controls" id="capture-controls">
+                <button class="camera-btn capture-btn" id="capture-btn" aria-label="Take photo">
+                    <i class="fas fa-camera"></i> Capture
+                </button>
+                <button class="camera-btn upload-btn" id="upload-btn" aria-label="Upload photo">
+                    <i class="fas fa-upload"></i> Upload
+                </button>
+                <input type="file" id="file-input" accept="image/*" style="display: none;">
+            </div>
+
+            <div class="action-buttons" id="action-controls" style="display: none;">
+                <button class="action-btn retake-btn" id="retake-btn" aria-label="Retake photo">
+                    <i class="fas fa-redo"></i> Retake
+                </button>
+                <button class="action-btn submit-btn" id="submit-btn" aria-label="Generate design">
+                    <i class="fas fa-magic"></i> Generate Design
+                </button>
+            </div>
+
+            <div class="spinner" id="loading-spinner" style="display: none;"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Us</a>
+            <a href="#">FAQ</a>
+        </div>
+
+        <div class="social-icons">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+
+        <p class="copyright">&copy; 2023 OfficeGenius. All rights reserved.</p>
+    </footer>
+
+    <!-- Add Three.js and Vanta.js scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.halo.min.js"></script>
+
+    <script>
+        // Initialize Vanta.js halo effect on header
+        VANTA.HALO({
+            el: "header",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            backgroundColor: 0xffffff,
+            size: 1.5,
+            amplitudeFactor: 2.0,
+            xOffset: 0.1,
+            yOffset: 0.1,
+            baseColor: 0x6c5ce7,
+            secondaryColor: 0xa29bfe
+        });
+
+        // Header scroll effect
+        let lastScrollY = 0;
+        let ticking = false;
+
+        function updateHeader() {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', function() {
+            lastScrollY = window.scrollY;
+            if (!ticking) {
+                window.requestAnimationFrame(updateHeader);
+                ticking = true;
+            }
+        });
+
+        // Animation on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.animate__animated');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const animationClass = entry.target.getAttribute('class').split('animate__animated ')[1];
+                        entry.target.classList.add(animationClass);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', animateOnScroll);
+
+        // Camera functionality
+        const cameraModal = document.getElementById('cameraModal');
+        const openCameraButtons = document.querySelectorAll('.open-camera');
+        const closeModal = document.querySelector('.close-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const cameraView = document.getElementById('camera-view');
+        const photoPreview = document.getElementById('photo-preview');
+        const captureBtn = document.getElementById('capture-btn');
+        const uploadBtn = document.getElementById('upload-btn');
+        const fileInput = document.getElementById('file-input');
+        const retakeBtn = document.getElementById('retake-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const cameraContainer = document.querySelector('.camera-container');
+        const previewContainer = document.querySelector('.preview-container');
+        const captureControls = document.getElementById('capture-controls');
+        const actionControls = document.getElementById('action-controls');
+        const loadingSpinner = document.getElementById('loading-spinner');
+
+        let stream = null;
+        let currentRoom = '';
+
+        // Open camera modal
+        openCameraButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                currentRoom = button.getAttribute('data-room');
+                const roomName = button.parentElement.querySelector('h3').textContent;
+                modalTitle.textContent = `Capture Your ${roomName}`;
+
+                cameraModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                setTimeout(() => {
+                    startCamera().catch(err => {
+                        console.error("Camera error:", err);
+                        captureBtn.style.display = 'none';
+                        alert("Couldn't access camera. Please upload a photo instead.");
+                    });
+                }, 300);
+            });
+        });
+
+        // Close modal
+        function closeCameraModal() {
+            cameraModal.classList.remove('active');
+            setTimeout(() => {
+                document.body.style.overflow = 'auto';
+                stopCamera();
+                resetCameraUI();
+            }, 300);
+        }
+
+        closeModal.addEventListener('click', closeCameraModal);
+        closeModal.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                closeCameraModal();
+            }
+        });
+
+        // Start camera
+        async function startCamera() {
+            try {
+                stopCamera();
+
+                const constraints = {
+                    video: {
+                        facingMode: 'environment',
+                        width: {
+                            ideal: 1280
+                        },
+                        height: {
+                            ideal: 720
+                        }
+                    },
+                    audio: false
+                };
+
+                stream = await navigator.mediaDevices.getUserMedia(constraints);
+                cameraView.srcObject = stream;
+                captureBtn.disabled = false;
+                return Promise.resolve();
+            } catch (err) {
+                console.error("Error accessing camera: ", err);
+                return Promise.reject(err);
+            }
+        }
+
+        // Stop camera
+        function stopCamera() {
+            if (stream) {
+                stream.getTracks().forEach(track => {
+                    track.stop();
+                });
+                cameraView.srcObject = null;
+                stream = null;
+            }
+        }
+
+        // Capture photo
+        captureBtn.addEventListener('click', () => {
+            cameraContainer.style.backgroundColor = 'white';
+            setTimeout(() => {
+                cameraContainer.style.backgroundColor = '#f5f5f5';
+            }, 200);
+
+            const canvas = document.createElement('canvas');
+            canvas.width = cameraView.videoWidth;
+            canvas.height = cameraView.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(cameraView, 0, 0, canvas.width, canvas.height);
+
+            photoPreview.src = canvas.toDataURL('image/png');
+            showPreview();
+            stopCamera();
+        });
+
+        function showPreview() {
+            cameraContainer.style.display = 'none';
+            previewContainer.style.display = 'block';
+            captureControls.style.display = 'none';
+            actionControls.style.display = 'flex';
+        }
+
+        // Upload photo
+        uploadBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (!file.type.match('image.*')) {
+                alert('Please select an image file (JPEG, PNG, etc.)');
+                return;
+            }
+
+            if (file.size > 5 * 1024 * 1024) {
+                alert('Image size should be less than 5MB');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                photoPreview.src = event.target.result;
+                showPreview();
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Retake photo
+        retakeBtn.addEventListener('click', () => {
+            resetCameraUI();
+            startCamera().catch(err => {
+                console.error("Camera error on retake:", err);
+                captureBtn.style.display = 'none';
+            });
+        });
+
+        // Submit photo
+        submitBtn.addEventListener('click', () => {
+            actionControls.style.display = 'none';
+            loadingSpinner.style.display = 'block';
+
+            setTimeout(() => {
+                loadingSpinner.style.display = 'none';
+                const roomName = currentRoom.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
+                alert(`Design generation started for your ${roomName}! Our AI is creating optimized workspace designs for you.`);
+                closeCameraModal();
+            }, 2000);
+        });
+
+        // Reset camera UI
+        function resetCameraUI() {
+            cameraContainer.style.display = 'block';
+            previewContainer.style.display = 'none';
+            captureControls.style.display = 'flex';
+            actionControls.style.display = 'none';
+            photoPreview.src = '';
+            fileInput.value = '';
+            captureBtn.style.display = 'inline-flex';
+        }
+
+        // Close modal when clicking outside or pressing Escape
+        window.addEventListener('click', (e) => {
+            if (e.target === cameraModal) {
+                closeCameraModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && cameraModal.classList.contains('active')) {
+                closeCameraModal();
+            }
+        });
+
+        // Add hover effects for all interactive elements
+        document.querySelectorAll('button, a, [role="button"]').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.style.transform = 'translateY(1px)';
+            });
+            el.addEventListener('mouseup', () => {
+                el.style.transform = '';
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = '';
+            });
+        });
+    </script>
+</body>
+
+</html>
